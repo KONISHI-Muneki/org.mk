@@ -9,7 +9,6 @@
 
 
  <mvc:annotation-driven />
- <mvc:resources mapping="/resources/**" location="/resources/" />
  <context:component-scan base-package="template.controller" />
 
  <bean
