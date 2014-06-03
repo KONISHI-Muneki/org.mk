@@ -19,12 +19,12 @@
  </bean>
 
  <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-  <property name="entityManagerFactory" value="entityManagerFactory" />
+  <property name="entityManagerFactory"  ref="entityManagerFactory" />
+  <property name="persistenceUnitName" value="persistenceUnit" />
  </bean>
 
  <bean id="entityManagerFactory"
   class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-  <property name="persistenceUnitName" value="persistenceUnit" />
   <property name="dataSource" ref="dataSource" />
  </bean>
 
