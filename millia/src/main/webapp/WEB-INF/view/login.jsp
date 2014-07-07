@@ -10,7 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>mk.org Web Service Platform</title>
-<link rel="stylesheet" href="http://www.こにしむねき.com/resources/css/kube.min.css" />
+<link rel="stylesheet" href="/resources/css/kube.min.css" />
 </head>
 <body>
 	<ul class="blocks-3">

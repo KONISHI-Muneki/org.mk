@@ -2,6 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
  <modelVersion>4.0.0</modelVersion>
+ <groupId>org.mk</groupId>
+ <artifactId>millia</artifactId>
  <version>0.0.1-SNAPSHOT</version>
  <packaging>war</packaging>
 
@@ -17,10 +19,8 @@
   <jstl.version>1.2</jstl.version>
   <servlet.version>2.5</servlet.version>
 
-
   <!-- Spring -->
   <spring-framework.version>3.2.3.RELEASE</spring-framework.version>
-  <spring>${spring-framework.version}</spring>
 
   <!-- Hibernate / JPA -->
   <hibernate.version>4.2.1.Final</hibernate.version>
@@ -99,11 +99,6 @@
    <artifactId>hibernate-entitymanager</artifactId>
    <version>${hibernate.version}</version>
   </dependency>
-  <dependency>
-   <groupId>commons-dbcp</groupId>
-   <artifactId>commons-dbcp</artifactId>
-   <version>1.4</version>
-  </dependency>
 
   <!-- Spring Data -->
   <dependency>
@@ -134,13 +129,6 @@
    <version>${spring-framework.version}</version>
   </dependency>
 
-  <dependency>
-   <groupId>com.h2database</groupId>
-   <artifactId>h2</artifactId>
-   <version>1.4.178</version>
-  </dependency>
-
-
   <!-- Test Artifacts -->
   <dependency>
    <groupId>org.springframework</groupId>
@@ -169,6 +157,5 @@
    </plugin>
   </plugins>
  </build>
- <groupId>org.mk</groupId>
- <artifactId>millia</artifactId>
+ 
 </project>
