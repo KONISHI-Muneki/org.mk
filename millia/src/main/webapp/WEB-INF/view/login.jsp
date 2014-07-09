@@ -8,15 +8,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>mk.org Web Service Platform</title>
 <link rel="stylesheet" href="/resources/css/kube.min.css" />
 </head>
 <body>
-	<ul class="blocks-3">
-		<li></li>
-		<li>
-			<h1 class="center">mk.org Web Service Platform</h1>
+	<div class="units-row">
+		<div class="unit-centered unit-30">
+			<h1>mk.org Web Service Platform</h1>
 			<div class="forms">
 				<fieldset>
 					<legend>Login</legend>
@@ -32,8 +32,7 @@
 					</p>
 				</fieldset>
 			</div>
-		</li>
-		<li></li>
-	</ul>
+		</div>
+	</div>
 </body>
 </html>
