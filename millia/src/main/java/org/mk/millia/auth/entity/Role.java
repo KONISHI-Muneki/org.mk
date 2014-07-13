@@ -1,4 +1,4 @@
-package org.mk.millia.entity.account;
+package org.mk.millia.auth.entity;
 
 import java.util.List;
 
