@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 public class Main {
 
@@ -17,43 +19,57 @@ public class Main {
 
 		// filter文字列を走査するためにchar配列に変換.
 		char[] chars = filter.toCharArray();
-		
-		// 
-		Deque<E> parentElementQue = new ArrayDeque<>();
-		Deque<Integer> brncktCntQue = new ArrayDeque<>();
-		
+
+		// 親要素を走査中に一時保存しおくキュー.
+		Deque<E> parentRecordQue = new ArrayDeque<>();
+		// '&' or '|'のカッコ終点を判別するためのフラグのキュー.
+		Deque<Boolean> brancketFlgQue = new ArrayDeque<>();
+
 		// ダミーの起点要素.
 		E head = new E("head");
-		
 		// 親要素カーソルの初期値はheadにする.
 		E parent = head;
-		int brancketCnt = 0;
+
 		StringBuilder sb = new StringBuilder();
 		for (char c : chars) {
+
+			// 空文字の場合は無視.
 			if (Character.isSpaceChar(c)) {
 				continue;
 			}
 
 			if (c == '(') {
-				brancketCnt++;
+				// ただの'('として扱う → フラグはfalse.
+				brancketFlgQue.push(false);
+
 			} else if (c == ')') {
-				String dstr = sb.toString();
-				if (StringUtils.isNotBlank(dstr)) {
+				
+				// 子要素(ツリーの葉要素)として登録する.
+				if (sb.length() > 0) {
+					String dstr = sb.toString();
 					E e = new E(dstr);
 					parent.children.add(e);
+					sb = new StringBuilder();
 				}
-				sb = new StringBuilder();
-				if (!brncktCntQue.isEmpty() && brancketCnt == brncktCntQue.getFirst()) {
-					parent = parentElementQue.pop();
-					brncktCntQue.pop();
+
+				// '&' or '|'のカッコの終点の場合は親を戻す.
+				if (!brancketFlgQue.isEmpty() && brancketFlgQue.pop()) {
+					parent = parentRecordQue.pop();
 				}
-				brancketCnt--;
+
 			} else if (c == '&' || c == '|') {
+				// 親に子として登録.
 				E e = new E("" + c);
 				parent.children.add(e);
-				parentElementQue.push(parent);
+
+				// 親を記録してこの'&' or '|'を親にする.
+				parentRecordQue.push(parent);
 				parent = e;
-				brncktCntQue.push(brancketCnt);
+
+				// 直近のブランケットの'&' or '|'のカッコ始点フラグを立てる.
+				brancketFlgQue.pop();
+				brancketFlgQue.push(true);
+
 			} else {
 				sb.append(c);
 			}
@@ -79,10 +95,27 @@ public class Main {
 		private E(String description) {
 			this.description = description;
 		}
+
+		public String getDescription() {
+			return description;
+		}
+
+		public void setDescription(String description) {
+			this.description = description;
+		}
+
+		public List<E> getChildren() {
+			return children;
+		}
+
+		public void setChildren(List<E> children) {
+			this.children = children;
+		}
 	}
 
-	public static void main(String[] args) {
-		read("(&(a=v)(b=v)(&(c=v)(&(d=v)(f=v)(g=v)))(e=v))(test)");
+	public static void main(String[] args) throws JsonProcessingException {
+		System.out.println(new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT)
+				.writeValueAsString(read("(&(a=v)(b=v)(&(c=v)(&(d=v)(f=v)(g=v)))(e=v))")));
 		read("test");
 	}
 }
